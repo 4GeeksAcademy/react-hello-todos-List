@@ -1,26 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+	const [tarea,setTarea] = useState("");
+	const [listaTarea,setListaTarea]=useState([]);
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	function handleTareasAñadir (event){
+		event.preventDefault();
+		let tareaActual = tarea;
+		setListaTarea(prev=>[...prev,tareaActual])
+	}
+
+	function handleTareasBorrar (indexItem){
+		setListaTarea(prev=>prev.filter((prev,index)=>index!==indexItem));
+
+	}
+
+
+	return (
+		<div className="text-center m-5">
+			<form class="mb-3" onSubmit={(e)=>handleTareasAñadir(e)}>
+				<label 
+				for="tareas" 
+				class="form-label"
+				
+				>Tareas</label>
+				<input 
+				type="text" 
+				class="form-control" 
+				id="tareas" 
+				placeholder="Sacar la basura"
+				value={tarea}
+				onChange={(e)=>setTarea(e.target.value)}
+				
+				/>
+			<div class="col-auto">
+    			<button 
+				type="submit" 
+				class="btn btn-primary mb-3"
+				>Confirmar Tarea</button>
+  			</div>			
+				</form>
+				
+				{
+					listaTarea.map((item,index)=>{
+						return(
+							<div className="mb-3">
+								<span>{item}</span>
+								<button className="btn btn-primary" onClick={()=>handleTareasBorrar(index)}></button>
+							</div>
+						)
+					}
+				)
+				}
+			
 		</div>
 	);
 };

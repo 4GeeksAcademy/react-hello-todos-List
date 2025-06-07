@@ -50,7 +50,7 @@ const Home = () => {
 						return(
 							<div className="mb-3">
 								<span>{item}</span>
-								<button className="btn btn-primary" onClick={()=>handleTareasBorrar(index)}></button>
+								<button className="btn btn-primary" onClick={()=>handleTareasBorrar(index)}>Borrar tarea</button>
 							</div>
 						)
 					}
